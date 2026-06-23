@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Señales y Transformada de Fourier | Análisis Interactivo</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Análisis interactivo de señales usando la Transformada de Fourier. Visualiza señales en tiempo y frecuencia.">
+    <meta name="keywords" content="Fourier, señales, transformada, análisis, Python, MATLAB">
+    <meta name="author" content="Estudiante de Señales y Sistemas">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/iconos/favicon.svg">
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- NAVBAR - Navegación Principal                                -->
+    <!-- ============================================================ -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#inicio">
+                <i class="fas fa-wave-square me-2"></i>
+                <span class="fw-bold">Señales & Fourier</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#inicio">
+                            <i class="fas fa-home"></i> Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#senales">
+                            <i class="fas fa-chart-line"></i> Señales
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#fourier">
+                            <i class="fas fa-chart-bar"></i> Fourier
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#propiedades">
+                            <i class="fas fa-cogs"></i> Propiedades
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#documentacion">
+                            <i class="fas fa-book"></i> Documentación
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================ -->
+    <!-- SECCIÓN 1: INICIO (Landing Page)                             -->
+    <!-- ============================================================ -->
+    <section id="inicio" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-7 hero-content">
+                    <div class="badge bg-primary mb-3 animate__animated animate__fadeIn">
+                        <i class="fas fa-graduation-cap me-1"></i> Proyecto Académico
+                    </div>
+                    <h1 class="display-2 fw-bold mb-4 animate__animated animate__fadeInUp">
+                        Análisis de Señales con
+                        <span class="text-gradient">Transformada de Fourier</span>
+                    </h1>
+                    <p class="lead mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+                        Visualiza, analiza y comprende cómo las señales se representan en los 
+                        dominios del tiempo y frecuencia usando Python y herramientas interactivas.
+                    </p>
+                    
+                    <div class="d-flex flex-wrap gap-3 mb-5 animate__animated animate__fadeInUp animate__delay-2s">
+                        <a href="#senales" class="btn btn-primary btn-lg">
+                            <i class="fas fa-play me-2"></i> Explorar Señales
+                        </a>
+                        <a href="#documentacion" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-code me-2"></i> Ver Código
+                        </a>
+                        <a href="https://github.com/tu-usuario/senales-fourier" target="_blank" class="btn btn-dark btn-lg">
+                            <i class="fab fa-github me-2"></i> GitHub
+                        </a>
+                    </div>
+                    
+                    <!-- Stats -->
+                    <div class="row g-4 stats-row animate__animated animate__fadeInUp animate__delay-3s">
+                        <div class="col-4 col-md-4">
+                            <div class="stat-item">
+                                <h3 class="stat-number" data-count="5">0</h3>
+                                <p class="stat-label">Señales Generadas</p>
+                            </div>
+                        </div>
+                        <div class="col-4 col-md-4">
+                            <div class="stat-item">
+                                <h3 class="stat-number" data-count="7">0</h3>
+                                <p class="stat-label">Propiedades Verificadas</p>
+                            </div>
+                        </div>
+                        <div class="col-4 col-md-4">
+                            <div class="stat-item">
+                                <h3 class="stat-number" data-count="12">0</h3>
+                                <p class="stat-label">Gráficas Generadas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-5 hero-visual animate__animated animate__fadeInRight">
+                    <div class="hero-card">
+                        <div class="card-glow"></div>
+                        <div class="wave-container">
+                            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 150 Q 50 80, 100 150 T 200 150 T 300 150 T 400 150" 
+                                      stroke="#2962ff" stroke-width="3" fill="none"/>
+                                <path d="M0 150 Q 50 220, 100 150 T 200 150 T 300 150 T 400 150" 
+                                      stroke="#ff6d00" stroke-width="3" fill="none" opacity="0.6"/>
+                                <circle cx="100" cy="150" r="4" fill="#2962ff"/>
+                                <circle cx="200" cy="150" r="4" fill="#2962ff"/>
+                                <circle cx="300" cy="150" r="4" fill="#2962ff"/>
+                            </svg>
+                        </div>
+                        <div class="card-content">
+                            <i class="fas fa-wave-square fa-3x text-primary"></i>
+                            <h4>Simulación Interactiva</h4>
+                            <p>Explora señales y sus espectros en tiempo real</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <a href="#senales" class="scroll-link">
+                <span class="mouse">
+                    <span class="wheel"></span>
+                </span>
+                <span class="scroll-text">Desplázate</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECCIÓN 2: SEÑALES GENERADAS                                -->
+    <!-- ============================================================ -->
+    <section id="senales" class="section-padding section-senales">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-badge">SEÑALES</span>
+                <h2 class="section-title">Señales en el Dominio del Tiempo</h2>
+                <p class="section-subtitle">
+                    Explora las 5 señales generadas para el análisis. Cada señal tiene 
+                    características únicas que exploraremos en el dominio de la frecuencia.
+                </p>
+            </div>
+            
+            <!-- Tabs de selección de señales -->
+            <ul class="nav nav-pills justify-content-center señales-tabs" id="senalTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-pulso" type="button">
+                        <i class="fas fa-square"></i> Pulso Rect.
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-escalon" type="button">
+                        <i class="fas fa-arrow-up"></i> Escalón
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-senoidal" type="button">
+                        <i class="fas fa-wave-sine"></i> Senoidal
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-pulso-var" type="button">
+                        <i class="fas fa-square-full"></i> Pulso Var.
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-amort" type="button">
+                        <i class="fas fa-wave-square"></i> Senoidal Amort.
+                    </button>
+                </li>
+            </ul>
+            
+            <!-- Contenido de las pestañas -->
+            <div class="tab-content" id="senalTabContent">
+                <!-- Pulso Rectangular -->
+                <div class="tab-pane fade show active" id="tab-pulso">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="chart-container">
+                                <div id="chart-pulso-tiempo" class="chart-box"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="signal-info-card">
+                                <h4><i class="fas fa-info-circle text-primary me-2"></i>Pulso Rectangular</h4>
+                                <p class="signal-desc">Pulso rectangular con ancho de 200ms y centro en 500ms</p>
+                                <div class="signal-stats">
+                                    <div class="stat-row">
+                                        <span class="stat-label">Energía</span>
+                                        <span class="stat-value" id="pulso-energia">0.200</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Potencia</span>
+                                        <span class="stat-value" id="pulso-potencia">0.200</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Máximo</span>
+                                        <span class="stat-value" id="pulso-max">1.000</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Mínimo</span>
+                                        <span class="stat-value" id="pulso-min">0.000</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Ancho</span>
+                                        <span class="stat-value">200 ms</span>
+                                    </div>
+                                </div>
+                                <div class="signal-tags">
+                                    <span class="badge bg-primary">Continua</span>
+                                    <span class="badge bg-success">Energía finita</span>
+                                    <span class="badge bg-info">Simétrica</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Escalón -->
+                <div class="tab-pane fade" id="tab-escalon">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="chart-container">
+                                <div id="chart-escalon-tiempo" class="chart-box"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="signal-info-card">
+                                <h4><i class="fas fa-arrow-up text-primary me-2"></i>Función Escalón</h4>
+                                <p class="signal-desc">Función escalón unitario con salto en t=300ms</p>
+                                <div class="signal-stats">
+                                    <div class="stat-row">
+                                        <span class="stat-label">Energía</span>
+                                        <span class="stat-value" id="escalon-energia">0.700</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Potencia</span>
+                                        <span class="stat-value" id="escalon-potencia">0.700</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Máximo</span>
+                                        <span class="stat-value" id="escalon-max">1.000</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Mínimo</span>
+                                        <span class="stat-value" id="escalon-min">0.000</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Salto en</span>
+                                        <span class="stat-value">300 ms</span>
+                                    </div>
+                                </div>
+                                <div class="signal-tags">
+                                    <span class="badge bg-primary">Discontinua</span>
+                                    <span class="badge bg-warning text-dark">Energía infinita</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Senoidal -->
+                <div class="tab-pane fade" id="tab-senoidal">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="chart-container">
+                                <div id="chart-senoidal-tiempo" class="chart-box"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="signal-info-card">
+                                <h4><i class="fas fa-wave-sine text-primary me-2"></i>Señal Senoidal</h4>
+                                <p class="signal-desc">Señal senoidal de 5Hz con amplitud unitaria</p>
+                                <div class="signal-stats">
+                                    <div class="stat-row">
+                                        <span class="stat-label">Energía</span>
+                                        <span class="stat-value" id="senoidal-energia">0.500</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Potencia</span>
+                                        <span class="stat-value" id="senoidal-potencia">0.500</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Máximo</span>
+                                        <span class="stat-value" id="senoidal-max">1.000</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Mínimo</span>
+                                        <span class="stat-value" id="senoidal-min">-1.000</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Frecuencia</span>
+                                        <span class="stat-value">5 Hz</span>
+                                    </div>
+                                </div>
+                                <div class="signal-tags">
+                                    <span class="badge bg-primary">Periódica</span>
+                                    <span class="badge bg-danger">Energía infinita</span>
+                                    <span class="badge bg-success">Armónica pura</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pulso Variante -->
+                <div class="tab-pane fade" id="tab-pulso-var">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="chart-container">
+                                <div id="chart-pulso-var-tiempo" class="chart-box"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="signal-info-card">
+                                <h4><i class="fas fa-square-full text-primary me-2"></i>Pulso Rectangular Variante</h4>
+                                <p class="signal-desc">Pulso rectangular con amplitud 1.5 y ancho 150ms</p>
+                                <div class="signal-stats">
+                                    <div class="stat-row">
+                                        <span class="stat-label">Energía</span>
+                                        <span class="stat-value" id="pulso-var-energia">0.337</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Potencia</span>
+                                        <span class="stat-value" id="pulso-var-potencia">0.337</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Máximo</span>
+                                        <span class="stat-value" id="pulso-var-max">1.500</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Mínimo</span>
+                                        <span class="stat-value" id="pulso-var-min">0.000</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Amplitud</span>
+                                        <span class="stat-value">1.5</span>
+                                    </div>
+                                </div>
+                                <div class="signal-tags">
+                                    <span class="badge bg-primary">Continua</span>
+                                    <span class="badge bg-success">Energía finita</span>
+                                    <span class="badge bg-warning text-dark">Amplitud > 1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Senoidal Amortiguada -->
+                <div class="tab-pane fade" id="tab-amort">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="chart-container">
+                                <div id="chart-amort-tiempo" class="chart-box"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="signal-info-card">
+                                <h4><i class="fas fa-wave-square text-primary me-2"></i>Señal Senoidal Amortiguada</h4>
+                                <p class="signal-desc">Señal senoidal amortiguada exponencialmente</p>
+                                <div class="signal-stats">
+                                    <div class="stat-row">
+                                        <span class="stat-label">Energía</span>
+                                        <span class="stat-value" id="amort-energia">0.125</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Potencia</span>
+                                        <span class="stat-value" id="amort-potencia">0.125</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Máximo</span>
+                                        <span class="stat-value" id="amort-max">0.790</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Mínimo</span>
+                                        <span class="stat-value" id="amort-min">-0.790</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Atenuación</span>
+                                        <span class="stat-value">α = 2</span>
+                                    </div>
+                                </div>
+                                <div class="signal-tags">
+                                    <span class="badge bg-primary">No Periódica</span>
+                                    <span class="badge bg-success">Energía finita</span>
+                                    <span class="badge bg-info">Amortiguada</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECCIÓN 3: TRANSFORMADA DE FOURIER                          -->
+    <!-- ============================================================ -->
+    <section id="fourier" class="section-padding section-fourier">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-badge">TRANSFORMADA DE FOURIER</span>
+                <h2 class="section-title">Análisis en el Dominio de la Frecuencia</h2>
+                <p class="section-subtitle">
+                    Visualiza los espectros de magnitud y fase de cada señal. 
+                    La Transformada de Fourier revela el contenido frecuencial de las señales.
+                </p>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="fourier-selector">
+                        <h5><i class="fas fa-filter me-2"></i>Seleccionar Señal</h5>
+                        <div class="list-group" id="fourierSignalList">
+                            <button class="list-group-item list-group-item-action active" data-signal="pulso">
+                                <i class="fas fa-square me-2"></i>Pulso Rectangular
+                            </button>
+                            <button class="list-group-item list-group-item-action" data-signal="escalon">
+                                <i class="fas fa-arrow-up me-2"></i>Escalón
+                            </button>
+                            <button class="list-group-item list-group-item-action" data-signal="senoidal">
+                                <i class="fas fa-wave-sine me-2"></i>Senoidal
+                            </button>
+                            <button class="list-group-item list-group-item-action" data-signal="pulso-var">
+                                <i class="fas fa-square-full me-2"></i>Pulso Variante
+                            </button>
+                            <button class="list-group-item list-group-item-action" data-signal="amort">
+                                <i class="fas fa-wave-square me-2"></i>Senoidal Amort.
+                            </button>
+                        </div>
+                        
+                        <div class="fourier-metrics mt-4" id="fourierMetrics">
+                            <h6><i class="fas fa-chart-simple me-2"></i>Métricas Espectrales</h6>
+                            <div class="metric-item">
+                                <span class="metric-label">Frecuencia Dominante</span>
+                                <span class="metric-value" id="freq-dominante">0.00 Hz</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">Amplitud Máxima</span>
+                                <span class="metric-value" id="amp-maxima">0.000</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">Ancho Espectral</span>
+                                <span class="metric-value" id="ancho-espectral">0.00 Hz</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">Tipo de Espectro</span>
+                                <span class="metric-value" id="tipo-espectro">Continuo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-9">
+                    <div class="fourier-charts">
+                        <div class="chart-container">
+                            <h5><i class="fas fa-wave-square me-2 text-primary"></i>Señal en el Tiempo</h5>
+                            <div id="chart-fourier-tiempo" class="chart-box"></div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="chart-container">
+                                    <h5><i class="fas fa-chart-bar me-2 text-primary"></i>Espectro de Magnitud</h5>
+                                    <div id="chart-fourier-magnitud" class="chart-box"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="chart-container">
+                                    <h5><i class="fas fa-chart-line me-2 text-primary"></i>Espectro de Fase</h5>
+                                    <div id="chart-fourier-fase" class="chart-box"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECCIÓN 4: PROPIEDADES DE LA TF                             -->
+    <!-- ============================================================ -->
+    <section id="propiedades" class="section-padding section-propiedades">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-badge">PROPIEDADES</span>
+                <h2 class="section-title">Propiedades de la Transformada de Fourier</h2>
+                <p class="section-subtitle">
+                    Verificación experimental de las propiedades fundamentales de la Transformada de Fourier.
+                    Cada propiedad se demuestra con ejemplos prácticos.
+                </p>
+            </div>
+            
+            <div class="row g-4">
+                <!-- Linealidad -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="property-card" data-property="linealidad">
+                        <div class="property-icon">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <h4>Linealidad</h4>
+                        <p>F[a·x + b·y] = a·F[x] + b·F[y]</p>
+                        <div class="property-status">
+                            <span class="badge bg-success"><i class="fas fa-check"></i> Verificada</span>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm property-btn" data-property="linealidad">
+                            <i class="fas fa-eye me-1"></i> Ver Demostración
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Desplazamiento Temporal -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="property-card" data-property="desplazamiento">
+                        <div class="property-icon">
+                            <i class="fas fa-arrows-left-right"></i>
+                        </div>
+                        <h4>Desplazamiento Temporal</h4>
+                        <p>x(t-t₀) ↔ X(f)·e<sup>-j2πft₀</sup></p>
+                        <div class="property-status">
+                            <span class="badge bg-success"><i class="fas fa-check"></i> Verificada</span>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm property-btn" data-property="desplazamiento">
+                            <i class="fas fa-eye me-1"></i> Ver Demostración
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Escalamiento en Frecuencia -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="property-card" data-property="escalamiento">
+                        <div class="property-icon">
+                            <i class="fas fa-expand"></i>
+                        </div>
+                        <h4>Escalamiento en Frecuencia</h4>
+                        <p>x(at) ↔ (1/|a|)·X(f/a)</p>
+                        <div class="property-status">
+                            <span class="badge bg-success"><i class="fas fa-check"></i> Verificada</span>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm property-btn" data-property="escalamiento">
+                            <i class="fas fa-eye me-1"></i> Ver Demostración
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Modulación -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="property-card" data-property="modulacion">
+                        <div class="property-icon">
+                            <i class="fas fa-arrows-alt-h"></i>
+                        </div>
+                        <h4>Modulación</h4>
+                        <p>x(t)·cos(2πf₀t) ↔ ½[X(f-f₀)+X(f+f₀)]</p>
+                        <div class="property-status">
+                            <span class="badge bg-success"><i class="fas fa-check"></i> Verificada</span>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm property-btn" data-property="modulacion">
+                            <i class="fas fa-eye me-1"></i> Ver Demostración
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Dualidad -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="property-card" data-property="dualidad">
+                        <div class="property-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h4>Dualidad</h4>
+                        <p>Transformada directa e inversa</p>
+                        <div class="property-status">
+                            <span class="badge bg-success"><i class="fas fa-check"></i> Verificada</span>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm property-btn" data-property="dualidad">
+                            <i class="fas fa-eye me-1"></i> Ver Demostración
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Resolución Espectral -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="property-card" data-property="resolucion">
+                        <div class="property-icon">
+                            <i class="fas fa-crosshairs"></i>
+                        </div>
+                        <h4>Resolución Espectral</h4>
+                        <p>Efecto de ventanas en la FFT</p>
+                        <div class="property-status">
+                            <span class="badge bg-success"><i class="fas fa-check"></i> Verificada</span>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm property-btn" data-property="resolucion">
+                            <i class="fas fa-eye me-1"></i> Ver Demostración
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal para demostración de propiedades -->
+            <div class="modal fade" id="propertyModal" tabindex="-1">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="propertyModalTitle">
+                                <i class="fas fa-cogs me-2"></i>Demostración de Propiedad
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="propertyModalContent">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Descripción</h6>
+                                        <p id="propertyDesc">Cargando...</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Fórmula</h6>
+                                        <p id="propertyFormula" class="formula-text">Cargando...</p>
+                                    </div>
+                                </div>
+                                <div id="propertyChart" class="chart-box" style="height:400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECCIÓN 5: DOCUMENTACIÓN                                   -->
+    <!-- ============================================================ -->
+    <section id="documentacion" class="section-padding section-documentacion">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-badge">DOCUMENTACIÓN</span>
+                <h2 class="section-title">Documentación del Proyecto</h2>
+                <p class="section-subtitle">
+                    Accede a toda la documentación, código y recursos del proyecto.
+                </p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="doc-card">
+                        <div class="doc-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <h4>Código Fuente</h4>
+                        <p>Accede al repositorio completo con todo el código Python utilizado en el análisis.</p>
+                        <a href="https://github.com/tu-usuario/senales-fourier" target="_blank" class="btn btn-dark">
+                            <i class="fab fa-github me-2"></i> Ver en GitHub
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="doc-card">
+                        <div class="doc-icon">
+                            <i class="fas fa-file-code"></i>
+                        </div>
+                        <h4>Documentación Técnica</h4>
+                        <p>Archivos JSON con metadatos, estadísticas y resultados del análisis de señales.</p>
+                        <a href="docs/documentacion_señales.json" target="_blank" class="btn btn-outline-primary">
+                            <i class="fas fa-download me-2"></i> Ver JSON
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="doc-card">
+                        <div class="doc-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <h4>Guía del Estudiante</h4>
+                        <p>Guía paso a paso para replicar el análisis y entender los conceptos fundamentales.</p>
+                        <a href="docs/guia_estudiante.md" target="_blank" class="btn btn-outline-success">
+                            <i class="fas fa-book me-2"></i> Leer Guía
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tabla de Resultados -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="resultados-table">
+                        <h4 class="text-center mb-4">
+                            <i class="fas fa-table me-2"></i>Resumen de Señales y Características
+                        </h4>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped" id="resultadosTable">
+                                <thead>
+                                    <tr>
+                                        <th>Señal</th>
+                                        <th>Energía</th>
+                                        <th>Potencia</th>
+                                        <th>Frec. Dominante</th>
+                                        <th>Tipo de Espectro</th>
+                                        <th>Propiedades</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Pulso Rectangular</strong></td>
+                                        <td>0.200</td>
+                                        <td>0.200</td>
+                                        <td>0.00 Hz</td>
+                                        <td><span class="badge bg-info">Continuo</span></td>
+                                        <td><span class="badge bg-success">Par</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Escalón</strong></td>
+                                        <td>0.700</td>
+                                        <td>0.700</td>
+                                        <td>0.00 Hz</td>
+                                        <td><span class="badge bg-warning text-dark">Continuo</span></td>
+                                        <td><span class="badge bg-secondary">No par</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Senoidal</strong></td>
+                                        <td>0.500</td>
+                                        <td>0.500</td>
+                                        <td>5.00 Hz</td>
+                                        <td><span class="badge bg-danger">Discreto</span></td>
+                                        <td><span class="badge bg-success">Par</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Pulso Variante</strong></td>
+                                        <td>0.337</td>
+                                        <td>0.337</td>
+                                        <td>0.00 Hz</td>
+                                        <td><span class="badge bg-info">Continuo</span></td>
+                                        <td><span class="badge bg-success">Par</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Senoidal Amortiguada</strong></td>
+                                        <td>0.125</td>
+                                        <td>0.125</td>
+                                        <td>8.00 Hz</td>
+                                        <td><span class="badge bg-info">Continuo</span></td>
+                                        <td><span class="badge bg-secondary">No par</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- FOOTER                                                     -->
+    <!-- ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5><i class="fas fa-wave-square me-2"></i>Señales & Fourier</h5>
+                    <p class="text-muted">
+                        Proyecto académico para el análisis de señales utilizando 
+                        la Transformada de Fourier. Implementado en Python con 
+                        NumPy, SciPy y Matplotlib.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://github.com/tu-usuario/senales-fourier" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <h5>Enlaces Rápidos</h5>
+                    <ul class="footer-links">
+                        <li><a href="#inicio"><i class="fas fa-chevron-right me-2"></i>Inicio</a></li>
+                        <li><a href="#senales"><i class="fas fa-chevron-right me-2"></i>Señales</a></li>
+                        <li><a href="#fourier"><i class="fas fa-chevron-right me-2"></i>Transformada de Fourier</a></li>
+                        <li><a href="#propiedades"><i class="fas fa-chevron-right me-2"></i>Propiedades</a></li>
+                        <li><a href="#documentacion"><i class="fas fa-chevron-right me-2"></i>Documentación</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <h5>Recursos</h5>
+                    <ul class="footer-links">
+                        <li><a href="https://github.com/tu-usuario/senales-fourier" target="_blank">
+                            <i class="fab fa-github me-2"></i>Repositorio GitHub
+                        </a></li>
+                        <li><a href="docs/documentacion_señales.json" target="_blank">
+                            <i class="fas fa-file-code me-2"></i>Documentación JSON
+                        </a></li>
+                        <li><a href="docs/guia_estudiante.md" target="_blank">
+                            <i class="fas fa-book me-2"></i>Guía del Estudiante
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr>
+            
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 text-muted">
+                        &copy; 2026 Señales y Sistemas - Todos los derechos reservados
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0 text-muted">
+                        Hecho con <i class="fas fa-heart text-danger"></i> usando Python
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================ -->
+    <!-- SCRIPTS                                                    -->
+    <!-- ============================================================ -->
+    
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Scripts del Proyecto -->
+    <script src="js/navigation.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+</html>

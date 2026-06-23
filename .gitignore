@@ -1,0 +1,156 @@
+# ================================================================
+# .gitignore - Archivos a ignorar en Git
+# Proyecto: Análisis de Señales con Transformada de Fourier
+# ================================================================
+
+# --------------------------------------------
+# Python
+# --------------------------------------------
+
+# Bytecode compilado
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de entorno virtual
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+.venv.bak/
+
+# Archivos de distribución
+dist/
+build/
+*.egg-info/
+*.egg
+MANIFEST
+
+# Archivos de pruebas
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+*.cover
+
+# Archivos de IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*.swo
+*.suo
+.DS_Store
+*.log
+
+# --------------------------------------------
+# Archivos de Datos (no subir grandes)
+# --------------------------------------------
+
+# Archivos de datos grandes (descomentar si se desea)
+# *.npz
+# *.npy
+# *.pkl
+# *.pickle
+# *.h5
+# *.hdf5
+
+# Archivos de bases de datos
+*.db
+*.sqlite
+*.sqlite3
+
+# --------------------------------------------
+# Archivos de Imágenes (opcional)
+# --------------------------------------------
+
+# Si se desea ignorar imágenes (descomentar)
+# *.png
+# *.jpg
+# *.jpeg
+# *.gif
+# *.bmp
+# *.tiff
+# *.svg
+
+# --------------------------------------------
+# Archivos de Documentación
+# --------------------------------------------
+
+# Archivos temporales de LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+
+# --------------------------------------------
+# Archivos del Sistema
+# --------------------------------------------
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+.directory
+*.bak
+
+# --------------------------------------------
+# Archivos de Configuración Personal
+# --------------------------------------------
+
+# Archivos de configuración local
+*.local
+*.user
+*.userprefs
+*.sln.docstates
+
+# Credenciales
+*.secret
+*.key
+*.pem
+*.crt
+.env
+*.env
+
+# --------------------------------------------
+# Archivos generados por el proyecto
+# --------------------------------------------
+
+# Archivos de salida de Python (descomentar si se desea)
+# *.npz
+# *.json
+# *.txt
+
+# Archivos de figura (descomentar si se desea)
+# *.png
+# *.jpg
+# *.pdf
+# *.eps
+
+# --------------------------------------------
+# Archivos de Web (opcional)
+# --------------------------------------------
+
+# Node_modules (para desarrollo web)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ================================================================
+# NOTA: Revisar antes de hacer commit para no excluir archivos
+# importantes accidentalmente.
+# ================================================================

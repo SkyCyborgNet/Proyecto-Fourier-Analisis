@@ -1,0 +1,107 @@
+{
+    "Pulso_Rectangular": {
+        "nombre": "Pulso_Rectangular",
+        "descripcion": "Pulso rectangular con ancho de 200ms y centro en 500ms",
+        "estadisticas_tiempo": {
+            "energia": 0.201,
+            "potencia": 0.201,
+            "maximo": 1.0,
+            "minimo": 0.0,
+            "media": 0.201,
+            "desviacion_estandar": 0.4007480505255141
+        },
+        "estadisticas_frecuencia": {
+            "frecuencia_dominante": -499.0,
+            "amplitud_maxima": 0.201,
+            "ancho_espectral": 201.0
+        },
+        "caracteristicas_espectrales": {
+            "tipo_espectro": "Continuo",
+            "simetria": "No par"
+        }
+    },
+    "Escalón": {
+        "nombre": "Escalón",
+        "descripcion": "Función escalón unitario con salto en t=300ms",
+        "estadisticas_tiempo": {
+            "energia": 0.7000000000000001,
+            "potencia": 0.7,
+            "maximo": 1.0,
+            "minimo": 0.0,
+            "media": 0.7,
+            "desviacion_estandar": 0.458257569495584
+        },
+        "estadisticas_frecuencia": {
+            "frecuencia_dominante": -499.0,
+            "amplitud_maxima": 0.7000000000000001,
+            "ancho_espectral": 61.0
+        },
+        "caracteristicas_espectrales": {
+            "tipo_espectro": "Continuo",
+            "simetria": "No par"
+        }
+    },
+    "Senoidal": {
+        "nombre": "Senoidal",
+        "descripcion": "Señal senoidal de 5Hz con amplitud unitaria",
+        "estadisticas_tiempo": {
+            "energia": 0.5,
+            "potencia": 0.5,
+            "maximo": 1.0,
+            "minimo": -1.0,
+            "media": -4.263256414560601e-17,
+            "desviacion_estandar": 0.7071067811865476
+        },
+        "estadisticas_frecuencia": {
+            "frecuencia_dominante": -495.0,
+            "amplitud_maxima": 0.5,
+            "ancho_espectral": 2.0
+        },
+        "caracteristicas_espectrales": {
+            "tipo_espectro": "Continuo",
+            "simetria": "No par"
+        }
+    },
+    "Pulso_Variante": {
+        "nombre": "Pulso_Variante",
+        "descripcion": "Pulso rectangular con amplitud 1.5 y ancho 150ms",
+        "estadisticas_tiempo": {
+            "energia": 0.3375,
+            "potencia": 0.3375,
+            "maximo": 1.5,
+            "minimo": 0.0,
+            "media": 0.225,
+            "desviacion_estandar": 0.5356071321407138
+        },
+        "estadisticas_frecuencia": {
+            "frecuencia_dominante": -499.0,
+            "amplitud_maxima": 0.225,
+            "ancho_espectral": 289.0
+        },
+        "caracteristicas_espectrales": {
+            "tipo_espectro": "Continuo",
+            "simetria": "No par"
+        }
+    },
+    "Senoidal_Amortiguada": {
+        "nombre": "Senoidal_Amortiguada",
+        "descripcion": "Señal senoidal amortiguada exponencialmente",
+        "estadisticas_tiempo": {
+            "energia": 0.12251658372358663,
+            "potencia": 0.12251658372358663,
+            "maximo": 0.9399061764028648,
+            "minimo": -0.8296836628769017,
+            "media": 0.017171145800863256,
+            "desviacion_estandar": 0.34960225324713246
+        },
+        "estadisticas_frecuencia": {
+            "frecuencia_dominante": -492.0,
+            "amplitud_maxima": 0.21612334206541484,
+            "ancho_espectral": 47.0
+        },
+        "caracteristicas_espectrales": {
+            "tipo_espectro": "Continuo",
+            "simetria": "No par"
+        }
+    }
+}
