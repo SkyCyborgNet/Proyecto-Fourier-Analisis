@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 📊 Análisis de Señales con Transformada de Fourier
 
 ![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)
@@ -23,3 +24,7 @@ Este proyecto implementa un análisis completo de señales utilizando la **Trans
 ---
 
 ## 📂 Estructura del Proyecto
+=======
+# Proyecto-Fourier-Analisis
+Proyecto-Fourier-Analisis
+>>>>>>> a4f828333168cdc8e09fb2a13558bb33034d39d9
